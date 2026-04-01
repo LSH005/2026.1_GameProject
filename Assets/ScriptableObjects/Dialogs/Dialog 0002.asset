@@ -19,5 +19,5 @@ MonoBehaviour:
   choices:
   - {fileID: 11400000, guid: 4b321527a1821b24cb82f0980c3befd8, type: 2}
   - {fileID: 11400000, guid: 826934f9861e1ca4587b832a27b36334, type: 2}
-  portrait: {fileID: 0}
-  portaitPath: 
+  portrait: {fileID: 21300000, guid: 726871c152b2efd4bb3c9ef8b9afd4e1, type: 3}
+  portraitPath: Characters/Narrator

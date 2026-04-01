@@ -12,5 +12,5 @@ public class DialogSO : ScriptableObject
     public List<DialogChoiceSO> choices = new List<DialogChoiceSO>();
 
     public Sprite portrait;
-    public string portaitPath;
+    public string portraitPath;
 }
