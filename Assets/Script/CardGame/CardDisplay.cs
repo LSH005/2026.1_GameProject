@@ -13,7 +13,7 @@ public class CardDisplay : MonoBehaviour
     public TextMeshPro attackText;
     public TextMeshPro descriptionText;
 
-    bool isDragging = false;
+    public bool isDragging = false;
     Vector3 originalPosition;
 
     public LayerMask enemyLayer;
@@ -63,6 +63,13 @@ public class CardDisplay : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (CardManager.Instance == null || CardManager.Instance.playerStats.currentMana < cardData.manaCost)
+        {
+            transform.position = originalPosition;
+            isDragging = false;
+            return;
+        }
+
         isDragging = false;
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -97,13 +104,22 @@ public class CardDisplay : MonoBehaviour
                 if (cardData.cardType == CardData.CardType.Heal)
                 {
                     playerStats.Heal(cardData.effectAmount);
-                    Debug.Log($"{cardData.cardName} 카드로 플레이어의 체력을 {cardData.effectAmount} 회복했습니다.");
+                    Debug.Log($"\"{cardData.cardName}\" 카드로 플레이어의 체력을 {cardData.effectAmount} 회복했습니다.");
                     cardUsed = true;
                 }
                 else
                 {
                     Debug.Log("이 카드는 플레이어에게 사용할 수 없습니다.");
                 }
+            }
+        }
+        else if (CardManager.Instance != null)
+        {
+            float distanceToDiscard = Vector3.Distance(transform.position, CardManager.Instance.discardPosition.position);
+            if (distanceToDiscard < 2.0f)
+            {
+                CardManager.Instance.DiscardCard(cardIndex);
+                return;
             }
         }
 
@@ -113,7 +129,9 @@ public class CardDisplay : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            if (CardManager.Instance != null) CardManager.Instance.DiscardCard(cardIndex);
+
+            CardManager.Instance.playerStats.UseMana(cardData.manaCost);
         }
     }
 }
