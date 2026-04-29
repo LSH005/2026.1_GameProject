@@ -15,6 +15,7 @@ MonoBehaviour:
   cardName: "\uD790\uB9E8"
   description: "\uACE0\uD1B5\uC744 \uB3D9\uBC18\uD55C \uCE58\uC720"
   artwork: {fileID: 21300000, guid: b123bdad4f47a734c80135e456f2d162, type: 3}
-  manaCost: 0
+  manaCost: 1
   effectAmount: 2147483647
   cardType: 1
+  additionalEffects: []
