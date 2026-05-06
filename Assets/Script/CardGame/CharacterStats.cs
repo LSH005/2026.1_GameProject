@@ -30,7 +30,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (goofyAhhDeath)
         {
-            transform.Rotate(Random.onUnitSphere * 180 * Time.deltaTime);
+            transform.Rotate(Random.onUnitSphere * 720 * Time.deltaTime);
         }
     }
 
@@ -42,6 +42,13 @@ public class CharacterStats : MonoBehaviour
             Death();
         }
         UpdateUi();
+
+        if (DamageEffectManager.Instance != null)
+        {
+            Vector3 position = transform.position;
+            position += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(1.0f, 1.5f), 0);
+            DamageEffectManager.Instance.ShowDamage(position, damage, false);
+        }
     }
 
     public void Heal(int amount)
@@ -49,6 +56,13 @@ public class CharacterStats : MonoBehaviour
         currentHealth += amount;
         currentHealth = Mathf.Min(currentHealth, maxHealth);
         UpdateUi();
+
+        if (DamageEffectManager.Instance != null)
+        {
+            Vector3 position = transform.position;
+            position += new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(1.0f, 1.5f), 0);
+            DamageEffectManager.Instance.ShowHeal(position, amount, false);
+        }
     }
 
     public void UseMana(int amount)

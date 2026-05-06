@@ -80,7 +80,8 @@ public class CardDisplay : MonoBehaviour
             return;
         }
         RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(transform.position);
+        //Ray ray = Camera.main.ScreenPointToRay(transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(Camera.main.WorldToScreenPoint(transform.position));
 
         bool cardUsed = false;
 
